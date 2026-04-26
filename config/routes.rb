@@ -15,3 +15,21 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "tasks#index"
 end
+#######
+#URL             →  Controller#Action  →  View file
+─────────────────────────────────────────────────────
+#/               →  tasks#index        →  app/views/tasks/index.html.erb
+#/tasks          →  tasks#index        →  app/views/tasks/index.html.erb
+#/tasks/new      →  tasks#new          →  app/views/tasks/new.html.erb
+#/tasks/:id      →  tasks#show         →  app/views/tasks/show.html.erb
+#/tasks/:id/edit →  tasks#edit         →  app/views/tasks/edit.html.erb
+
+
+#######
+#Controller#Action   →   app/views/[controller]/[action].html.erb
+
+#tasks#index         →   app/views/tasks/index.html.erb
+#tasks#show          →   app/views/tasks/show.html.erb
+#tasks#new           →   app/views/tasks/new.html.erb
+
+#
