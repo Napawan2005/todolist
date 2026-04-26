@@ -1,9 +1,11 @@
+<%# form_with สร้าง <form> อัตโนมัติ — ถ้า task ใหม่ POST /tasks, ถ้า edit PATCH /tasks/:id %>
 <%= form_with(model: task) do |form| %>
-  <% if task.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(task.errors.count, "error") %> prohibited this task from being saved:</h2>
 
-      <ul>
+  <%# แสดง error ถ้า validation ไม่ผ่าน %>
+  <% if task.errors.any? %>
+    <div class="flash-notice" style="background:#fee2e2; border-left-color:#ef4444">
+      <strong><%= pluralize(task.errors.count, "error") %>:</strong>
+      <ul style="margin-top:0.3rem; padding-left:1.2rem">
         <% task.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
@@ -11,22 +13,33 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :title, style: "display: block" %>
-    <%= form.text_field :title %>
-  </div>
+  <%# กล่องขาวใส่ fields ทั้งหมด %>
+  <div class="form-card">
 
-  <div>
-    <%= form.label :due_date, style: "display: block" %>
-    <%= form.date_field :due_date %>
-  </div>
+    <%# TITLE field %>
+    <div class="form-group">
+      <%# form.label สร้าง <label for="task_title">Title</label> %>
+      <%= form.label :title %>
+      <%# form.text_field สร้าง <input type="text" name="task[title]"> %>
+      <%= form.text_field :title, placeholder: "What needs to be done?" %>
+    </div>
 
-  <div>
-    <%= form.label :completed, style: "display: block" %>
-    <%= form.checkbox :completed %>
-  </div>
+    <%# DUE DATE field %>
+    <div class="form-group">
+      <%= form.label :due_date %>
+      <%# date_field สร้าง <input type="date"> — browser แสดง date picker %>
+      <%= form.date_field :due_date %>
+    </div>
 
-  <div>
-    <%= form.submit %>
+    <%# COMPLETED checkbox — อยู่แนวนอนกับ label %>
+    <div class="form-group checkbox-row">
+      <%# check_box สร้าง <input type="checkbox" name="task[completed]"> %>
+      <%= form.check_box :completed %>
+      <%= form.label :completed, "Mark as completed" %>
+    </div>
+
+    <%# ปุ่ม submit — ข้อความเปลี่ยนอัตโนมัติ: "Create Task" หรือ "Update Task" %>
+    <%= form.submit class: "btn-submit" %>
+
   </div>
 <% end %>
