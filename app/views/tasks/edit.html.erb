@@ -1,12 +1,16 @@
-<% content_for :title, "Editing task" %>
+<%# title ของ browser tab %>
+<% content_for :title, "Edit Task" %>
 
-<h1>Editing task</h1>
+<%# header หน้า edit %>
+<div class="page-header">
+  <div class="page-header-left">
+    <p class="page-label">Editing</p>
+    <h1>✏️ Edit Task</h1>
+  </div>
+</div>
 
+<%# render partial _form.html.erb — form เดียวกับ new ใช้ได้เลย %>
 <%= render "form", task: @task %>
 
-<br>
-
-<div>
-  <%= link_to "Show this task", @task %> |
-  <%= link_to "Back to tasks", tasks_path %>
-</div>
+<%# ลิงก์กลับ %>
+<%= link_to "← Back to tasks", tasks_path, class: "back-link" %>
