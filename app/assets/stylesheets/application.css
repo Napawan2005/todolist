@@ -1,244 +1,335 @@
 /*
- * This is a manifest file that'll be compiled into application.css.
- *
- * With Propshaft, assets are served efficiently without preprocessing steps. You can still include
- * application-wide styles in this file, but keep in mind that CSS precedence will follow the standard
- * cascading order, meaning styles declared later in the document or manifest will override earlier ones,
- * depending on specificity.
- *
- * Consider organizing styles into separate files for maintainability.
+ * application.css — Pastel Todo App Design System
  */
 
-/* ============================================
-   RESET — ลบค่า default ของ browser ทิ้ง
-   เพราะแต่ละ browser มี default ไม่เหมือนกัน
-   ============================================ */
+/* ─── RESET ───────────────────────────────────────────────
+   ลบค่า default ของ browser ทิ้ง
+   * = ทุก element, box-sizing: border-box = padding ไม่เพิ่มขนาด
+   ──────────────────────────────────────────────────────── */
 * {
-  box-sizing: border-box; /* padding ไม่เพิ่มขนาด element */
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-/* ============================================
-   BASE — ตั้งค่าพื้นฐานทั้งเว็บ
-   ============================================ */
+/* ─── BASE ────────────────────────────────────────────────
+   ค่าพื้นฐานทั้งเว็บ ตัวหนังสือ + พื้นหลัง
+   ──────────────────────────────────────────────────────── */
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  background-color: #f5f5f5;
-  color: #333;
+  background-color: #f0fdf4; /* เขียวอ่อนมากๆ */
+  color: #111;               /* ตัวหนังสือดำทุกที่ */
   line-height: 1.6;
 }
 
-/* ============================================
-   LAYOUT — กรอบหลักที่จัดเนื้อหาให้อยู่กลาง
-   ============================================ */
+/* ─── LAYOUT ──────────────────────────────────────────────
+   .container = กล่องกลางหน้า กว้างสุด 680px อยู่กึ่งกลาง
+   margin: 0 auto = left/right auto ทำให้อยู่กลาง
+   ──────────────────────────────────────────────────────── */
 .container {
-  max-width: 700px;   /* กว้างสุด 700px */
-  margin: 0 auto;     /* 0 = top/bottom, auto = left/right → อยู่กลาง */
-  padding: 2rem;      /* rem = relative to root font size (1rem = 16px) */
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
 }
 
-/* ============================================
-   TYPOGRAPHY — ตัวหนังสือ
-   ============================================ */
-h1 {
-  font-size: 2rem;
-  font-weight: 700;
-  color: #1a1a2e;
-  margin-bottom: 1.5rem;
+/* ─── PAGE HEADER ─────────────────────────────────────────
+   แถวบนสุดของแต่ละหน้า: ชื่อหน้าซ้าย ปุ่มขวา
+   justify-content: space-between = ดันชิดขอบสองข้าง
+   ──────────────────────────────────────────────────────── */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 1.25rem;
 }
 
-/* ============================================
-   CARD — กล่องสีขาวที่มีเงา
-   ============================================ */
-.card {
-  background: white;
-  border-radius: 12px;        /* มุมโค้ง */
-  padding: 1.5rem;
-  margin-bottom: 1rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); /* x y blur color */
-  transition: box-shadow 0.2s; /* animation ตอน hover */
-}
-
-.card:hover {
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
-}
-
-/* ============================================
-   TASK ITEM — แต่ละ task ใน list
-   ============================================ */
-.task-item {
-  display: flex;           /* Flexbox = จัดของในแนวนอน */
-  align-items: center;     /* จัดกึ่งกลางแนวตั้ง */
-  gap: 1rem;               /* ระยะห่างระหว่าง children */
-  padding: 1rem 1.25rem;
-  background: white;
-  border-radius: 10px;
-  margin-bottom: 0.75rem;
-  border: 1px solid #e8e8e8;
-  transition: transform 0.15s, box-shadow 0.15s;
-}
-
-.task-item:hover {
-  transform: translateY(-2px); /* ลอยขึ้น 2px ตอน hover */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.task-title {
-  flex: 1;              /* ขยายเต็มพื้นที่ที่เหลือ */
-  font-size: 1rem;
-  font-weight: 500;
-}
-
-.task-title.completed {
-  text-decoration: line-through;
-  color: #aaa;
-}
-
-.task-due-date {
-  font-size: 0.8rem;
-  color: #888;
-  white-space: nowrap;  /* ไม่ตัดบรรทัด */
-}
-
-.task-badge {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.25rem 0.75rem;
-  border-radius: 999px;   /* pill shape */
-  font-size: 0.75rem;
+.page-header-left .page-label {
+  font-size: 0.7rem;
   font-weight: 600;
+  letter-spacing: 0.08em;
+  color: #111;
+  text-transform: uppercase; /* ตัวพิมพ์ใหญ่ */
 }
 
-.badge-done {
-  background: #d4edda;
-  color: #155724;
+.page-header-left h1 {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #111;
 }
 
-.badge-pending {
-  background: #fff3cd;
-  color: #856404;
+/* ─── PROGRESS BAR ────────────────────────────────────────
+   แถบความคืบหน้า: พื้นหลังเทา + แถบ indigo gradient
+   width ถูก set แบบ inline style ใน HTML
+   ──────────────────────────────────────────────────────── */
+.progress-wrap {
+  margin-bottom: 0.4rem;
 }
 
-/* ============================================
-   BUTTONS — ปุ่มกด
-   ============================================ */
+.progress-bar-bg {
+  background: #e5e7eb;
+  border-radius: 99px;
+  height: 7px;
+}
+
+.progress-bar-fill {
+  background: linear-gradient(90deg, #6366f1, #a78bfa);
+  height: 7px;
+  border-radius: 99px;
+  transition: width 0.4s ease; /* animation เวลาเปลี่ยน */
+}
+
+.progress-label {
+  font-size: 0.75rem;
+  color: #111;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+/* ─── TASK ROWS ───────────────────────────────────────────
+   .task-row = แถว task หนึ่งแถว
+   .pending  = amber (เหลือง) — ยังไม่เสร็จ
+   .done     = blue (ฟ้า) + จางลง — เสร็จแล้ว
+   .upcoming = pink (ชมพู) — ยังไม่ถึงกำหนด
+   ──────────────────────────────────────────────────────── */
+.task-row {
+  border-radius: 10px;
+  padding: 11px 14px;
+  margin-bottom: 7px;
+  display: flex;        /* จัด icon + text + ปุ่ม ในแนวนอน */
+  align-items: center;
+  gap: 10px;
+}
+
+.task-row.pending  { background: #fef3c7; } /* amber pastel */
+.task-row.done     { background: #e0f2fe; opacity: 0.6; } /* blue pastel จาง */
+.task-row.upcoming { background: #fce7f3; } /* pink pastel */
+
+.task-icon {
+  font-size: 1.1rem;
+  flex-shrink: 0; /* ไม่ให้ย่อ icon */
+}
+
+.task-info {
+  flex: 1;        /* ขยายเต็มพื้นที่ที่เหลือ */
+  min-width: 0;   /* ป้องกัน overflow */
+}
+
+.task-name {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #111;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; /* ยาวเกินแสดง ... */
+}
+
+.task-name.strikethrough {
+  text-decoration: line-through; /* ขีดฆ่า task ที่เสร็จ */
+  color: #111;
+}
+
+.task-date {
+  font-size: 0.75rem;
+  color: #111;
+}
+
+/* ─── BUTTONS ─────────────────────────────────────────────
+   .btn = base ปุ่มทุกปุ่ม
+   .btn-primary   = indigo (หลัก)
+   .btn-danger    = red (ลบ)
+   .btn-secondary = gray (ทั่วไป)
+   .btn-sm        = ขนาดเล็กสำหรับใน task row
+   ──────────────────────────────────────────────────────── */
 .btn {
   display: inline-block;
-  padding: 0.6rem 1.25rem;
+  padding: 0.45rem 1rem;
   border-radius: 8px;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   font-weight: 600;
   text-decoration: none;
   cursor: pointer;
   border: none;
+  line-height: 1;
   transition: opacity 0.15s, transform 0.1s;
 }
 
-.btn:hover {
-  opacity: 0.85;
-  transform: translateY(-1px);
+.btn:hover  { opacity: 0.85; transform: translateY(-1px); }
+.btn:active { transform: translateY(0); }
+
+.btn-primary   { background: #6366f1; color: white; }
+.btn-danger    { background: #ef4444; color: white; }
+.btn-secondary { background: #e5e7eb; color: #111; }
+.btn-sm        { padding: 0.3rem 0.7rem; font-size: 0.78rem; }
+
+/* .btn-group = แถวปุ่มหลายปุ่มเรียงกัน */
+.btn-group {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
 }
 
-.btn:active {
-  transform: translateY(0);
-}
-
-.btn-primary {
-  background: #4f46e5; /* indigo */
-  color: white;
-}
-
-.btn-secondary {
-  background: #e5e7eb;
-  color: #374151;
-}
-
-.btn-danger {
-  background: #ef4444;
-  color: white;
-}
-
-.btn-sm {
-  padding: 0.35rem 0.8rem;
-  font-size: 0.8rem;
-}
-
-/* ============================================
-   FORM — input และ label
-   ============================================ */
+/* ─── FORM ────────────────────────────────────────────────
+   .form-card = กล่องขาวใส่ form
+   .form-group = ห่อ label + input แต่ละคู่
+   ──────────────────────────────────────────────────────── */
 .form-card {
   background: white;
   border-radius: 12px;
-  padding: 2rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  padding: 1.75rem;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.07);
 }
 
-.form-group {
-  margin-bottom: 1.25rem;
-}
+.form-group { margin-bottom: 1.1rem; }
 
 label {
   display: block;
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: #374151;
-  margin-bottom: 0.4rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #111;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 0.35rem;
 }
 
 input[type="text"],
 input[type="date"] {
   width: 100%;
-  padding: 0.65rem 0.9rem;
-  border: 1.5px solid #d1d5db;
+  padding: 0.6rem 0.85rem;
+  border: 1.5px solid #e5e7eb;
   border-radius: 8px;
-  font-size: 1rem;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  font-size: 0.95rem;
+  color: #111;
   outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
+/* focus ring — วงแสงรอบ input ตอนคลิก */
 input[type="text"]:focus,
 input[type="date"]:focus {
-  border-color: #4f46e5;
-  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15); /* focus ring */
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99,102,241,0.15);
 }
 
-input[type="checkbox"] {
-  width: 18px;
-  height: 18px;
-  accent-color: #4f46e5; /* สี checkbox ตอน check */
+/* ─── CHECKBOX ROW ────────────────────────────────────────
+   checkbox + label อยู่แนวนอนเดียวกัน
+   ──────────────────────────────────────────────────────── */
+.checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.checkbox-row input[type="checkbox"] {
+  width: 17px;
+  height: 17px;
+  accent-color: #6366f1; /* สี checkbox ตอน checked */
   cursor: pointer;
 }
 
-/* ============================================
-   FLASH NOTICE — ข้อความแจ้งเตือน
-   ============================================ */
-.notice {
-  padding: 0.9rem 1.25rem;
-  background: #d4edda;
-  color: #155724;
-  border-radius: 8px;
+.checkbox-row label {
+  font-size: 0.9rem;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+  margin-bottom: 0;
+  cursor: pointer;
+}
+
+/* .btn-submit = ปุ่ม submit เต็มความกว้าง gradient */
+.btn-submit {
+  width: 100%;
+  padding: 0.75rem;
+  background: linear-gradient(135deg, #6366f1, #a78bfa);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  transition: opacity 0.15s;
+}
+
+.btn-submit:hover { opacity: 0.88; }
+
+/* ─── SHOW PAGE ───────────────────────────────────────────
+   .detail-card       = กล่องขาวใส่รายละเอียด task
+   .detail-title-box  = กล่อง amber ใส่ชื่อ task
+   .detail-meta       = แถวข้อมูล due date + status
+   .detail-meta-box   = กล่องเทาแต่ละช่อง
+   ──────────────────────────────────────────────────────── */
+.detail-card {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.07);
   margin-bottom: 1rem;
-  border-left: 4px solid #28a745;
 }
 
-/* ============================================
-   ACTIONS ROW — แถวปุ่ม link ต่างๆ
-   ============================================ */
-.actions {
-  display: flex;
-  gap: 0.75rem;
-  align-items: center;
-  flex-wrap: wrap;
-  margin-top: 1rem;
+.detail-title-box {
+  background: #fef3c7;          /* amber pastel */
+  border-radius: 8px;
+  border-left: 4px solid #f59e0b; /* เส้นซ้ายสีเหลือง */
+  padding: 10px 14px;
+  margin-bottom: 1rem;
 }
 
-/* ============================================
-   PAGE HEADER — ส่วนบนของหน้า
-   ============================================ */
-.page-header {
-  display: flex;
-  justify-content: space-between; /* h1 ซ้าย ปุ่มขวา */
-  align-items: center;
-  margin-bottom: 1.5rem;
+.detail-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: #111;
+  margin-bottom: 3px;
 }
+
+.detail-value {
+  font-weight: 700;
+  color: #111;
+}
+
+.detail-title-box .detail-value {
+  font-size: 1.15rem;
+  font-weight: 800;
+}
+
+.detail-meta {
+  display: flex;
+  gap: 10px;
+}
+
+.detail-meta-box {
+  background: #f3f4f6;
+  border-radius: 8px;
+  padding: 9px 12px;
+  flex: 1;         /* แต่ละกล่องกว้างเท่ากัน */
+  font-size: 0.82rem;
+}
+
+/* ─── FLASH NOTICE ────────────────────────────────────────
+   แถบแจ้งเตือนสีเขียว หลัง save สำเร็จ
+   border-left = เส้นสีเข้มด้านซ้าย
+   ──────────────────────────────────────────────────────── */
+.flash-notice {
+  background: #d1fae5;
+  color: #111;
+  border-left: 4px solid #10b981;
+  border-radius: 8px;
+  padding: 0.8rem 1rem;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+/* ─── BACK LINK ───────────────────────────────────────────
+   ลิงก์กลับหน้าก่อน ไม่มีสี underline ตอน hover
+   ──────────────────────────────────────────────────────── */
+.back-link {
+  display: inline-block;
+  color: #111;
+  font-size: 0.88rem;
+  text-decoration: none;
+  margin-top: 0.75rem;
+}
+
+.back-link:hover { text-decoration: underline; }
