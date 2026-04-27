@@ -1,0 +1,31 @@
+<% content_for :title, "Profile" %>
+
+<% if notice.present? %>
+  <p class="flash-notice"><%= notice %></p>
+<% end %>
+
+<div class="profile-hero">
+  <div class="av-lg"><%= @profile.name&.first&.upcase %></div>
+  <div class="hero-name"><%= @profile.name %></div>
+  <div class="hero-uni"><%= @profile.university %></div>
+</div>
+
+<div class="stats-row">
+  <div class="stat-box">
+    <div class="stat-num"><%= @total %></div>
+    <div class="stat-lbl">Total</div>
+  </div>
+  <div class="stat-box">
+    <div class="stat-num"><%= @done %></div>
+    <div class="stat-lbl">Done</div>
+  </div>
+  <div class="stat-box">
+    <div class="stat-num"><%= @left %></div>
+    <div class="stat-lbl">Left</div>
+  </div>
+</div>
+
+<div style="display:flex; gap:8px;">
+  <%= link_to "✏️ Edit Profile", edit_profile_path, class: "btn btn-primary" %>
+  <%= link_to "← Back to Tasks", root_path, class: "btn btn-secondary" %>
+</div>
