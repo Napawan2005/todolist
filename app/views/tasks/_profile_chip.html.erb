@@ -1,0 +1,12 @@
+<%
+  done = @tasks.count(&:completed)
+  left = @tasks.count - done
+%>
+<div class="profile-chip">
+  <div class="av"><%= profile.name&.first&.upcase %></div>
+  <div class="chip-info">
+    <div class="chip-name"><%= profile.name %> · <%= profile.university %></div>
+    <div class="chip-stats"><%= done %> done · <%= left %> remaining</div>
+  </div>
+  <%= link_to "Profile →", profile_path, class: "chip-link" %>
+</div>

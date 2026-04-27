@@ -3,7 +3,8 @@ class TasksController < ApplicationController
 
   # GET /tasks or /tasks.json
   def index
-    @tasks = Task.all
+    @tasks   = Task.all
+    @profile = Profile.first_or_create(name: "Napassawan korsinprasert", university: "ศิลปากร CS")
   end
 
   # GET /tasks/1 or /tasks/1.json

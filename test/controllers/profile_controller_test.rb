@@ -36,4 +36,11 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
     patch profile_path, params: { profile: { name: "", university: "SU" } }
     assert_response :unprocessable_entity
   end
+
+  test "GET /tasks creates profile and renders chip" do
+    get root_path
+    assert_response :success
+    assert_equal 1, Profile.count
+    assert_match "profile-chip", response.body
+  end
 end

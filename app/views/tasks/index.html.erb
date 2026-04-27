@@ -31,6 +31,8 @@
 </div>
 <span class="progress-label"><%= completed %> of <%= total %> completed</span>
 
+<%= render "profile_chip", profile: @profile %>
+
 <%# วน loop แต่ละ task %>
 <div id="tasks">
   <% @tasks.each do |task| %>
