@@ -1,0 +1,26 @@
+<% content_for :title, "Edit Profile" %>
+
+<div class="page-header">
+  <div class="page-header-left">
+    <p class="page-label">Profile</p>
+    <h1>✏️ Edit Profile</h1>
+  </div>
+</div>
+
+<div class="form-card">
+  <%= form_with url: profile_path, method: :patch do |f| %>
+    <div class="form-group">
+      <%= f.label :name, "Name" %>
+      <%= f.text_field :name, value: @profile.name %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :university, "University" %>
+      <%= f.text_field :university, value: @profile.university %>
+    </div>
+
+    <%= f.submit "Save", class: "btn-submit" %>
+  <% end %>
+</div>
+
+<%= link_to "Cancel", profile_path, class: "back-link" %>
